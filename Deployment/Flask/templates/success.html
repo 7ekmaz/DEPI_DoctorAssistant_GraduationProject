@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %} Brain Prediction Form {% endblock title %}
+{% block body %}
+
+<!-- Apply the background image to the entire body -->
+<style>
+    body {
+        background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('{{ url_for('static', filename='images/section-1-bg-1.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white; /* Ensure text is visible against dark background */
+    }
+
+    .container {
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+        padding: 20px;
+        border-radius: 10px;
+        color: black; /* Text color inside the container */
+        margin-top: 50px;
+    }
+
+    .btn {
+        margin: 10px; /* Add space between buttons */
+    }
+
+    p {
+        color: black; /* Text color inside the container */
+    }
+</style>
+
+<div class="container text-center"> <!-- Use the 'text-center' class to align text and elements to the center -->
+    <p>file uploaded successfully</p>  
+    <p>File Name: {{ name }}</p>  
+
+    <img src="{{ url_for('uploaded_file', filename=name) }}" alt="Uploaded Image" style="max-width: 500px; height: auto; margin-bottom: 20px;">
+    
+    <!-- Buttons -->
+    <div>
+        <a href="{{ url_for('prediction_form') }}" class="btn btn-primary">Go back</a>
+        <!-- Button to go back to the homepage or another specific route -->
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Go Home</a>
+        <!-- Button to go to the prediction -->
+        <a href="{{ url_for('predict_image', filename=name) }}" class="btn btn-success">Go to the prediction</a>
+    </div>
+</div>
+
+{% endblock body %}

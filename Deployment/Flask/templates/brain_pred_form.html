@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %} Brain Tumor Prediction {% endblock title %}
+{% block body %}
+
+<!-- Apply the background image to the entire body -->
+<style>
+    body {
+        background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('{{ url_for('static', filename='images/section-1-bg-1.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white; /* Ensure text is visible against dark background */
+    }
+
+    .container {
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+        padding: 20px;
+        border-radius: 10px;
+        color: black; /* Text color inside the container */
+        margin-top: 50px;
+    }
+
+    .btn {
+        margin: 10px; /* Add margin to buttons */
+    }
+
+    h2, h3 {
+        color: black; /* Set headings to black inside the container */
+    }
+</style>
+
+<div class="container text-center">
+    <h2>Brain Tumor Prediction</h2>
+
+    <form action="/brain_success" enctype="multipart/form-data" method="POST" class="text-center">
+        <div class="mb-3">
+            <label for="file" class="form-label">Upload an MRI image:</label>
+            <input type="file" class="form-control" id="file" name="file" accept="image/*">
+            <div id="fileHelp" class="form-text">Only image files are allowed (jpg, jpeg, png).</div>
+        </div>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go back</a>
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Go Home</a>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+
+    <!-- Display prediction results here -->
+    {% if prediction %}
+    <div class="predicted-class mt-4">
+        <h3>Predicted Class: {{ prediction }}</h3>
+        <audio controls>
+            <source src="{{ url_for('static', filename='prediction_audio.wav') }}" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock body %}

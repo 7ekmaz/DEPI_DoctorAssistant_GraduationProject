@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %} Brain Tumor Prediction Results {% endblock title %}
+{% block body %}
+
+<!-- Add background styling to the body or container -->
+<style>
+    body {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ url_for('static', filename='images/section-1-bg-1.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+    }
+
+    .container {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+        color: black;
+    }
+
+    .display-4 {
+        color: black;
+    }
+</style>
+
+<div class="container text-center">
+    <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image" class="img-fluid" style="max-width: 500px; height: auto; margin-top: 20px;">
+
+    <h1 class="display-4 mt-4">Brain Tumor Prediction Results for {{ filename }}</h1>
+
+    <div class="row justify-content-center mt-4">
+        <!-- Iterate over sorted predictions -->
+        {% for condition, confidence in predictions.items() %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100"
+                style="{% if loop.index == 1 %}
+                          background-color: red;
+                       {% else %}
+                          background-color: #f8f9fa; filter: blur(1px);
+                       {% endif %}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ condition }}</h5>
+                    <p class="card-text">Confidence: {{ confidence|round(2) }}%</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Speech for Prediction -->
+    <div class="mt-4">
+        <h4>Prediction Spoken:</h4>
+        <audio controls>
+            <source src="{{ url_for('static', filename='prediction_audio.wav') }}" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <!-- Question and Answer Section -->
+    <div class="mt-5">
+        <form action="/brain_prediction/{{ filename }}" method="POST">
+            <label for="question">Ask a Question About the Prediction:</label>
+            <textarea class="form-control" id="question" name="question" rows="3"></textarea>
+            <button type="submit" class="btn btn-primary mt-3">Submit Question</button>
+        </form>
+
+        {% if question and answer %}
+        <div class="mt-4">
+            <h4>Your Question: {{ question }}</h4>
+            <p><strong>Answer:</strong> {{ answer }}</p>
+            <audio controls>
+                <source src="{{ url_for('static', filename='answer_audio.wav') }}" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="mt-3">
+        <a href="{{ url_for('brain_prediction_form') }}" class="btn btn-primary">Upload another file</a>
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Go Home</a>
+    </div>
+</div>
+
+{% endblock %}

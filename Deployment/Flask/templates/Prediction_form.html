@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Payment Form{% endblock %}
+
+{% block body %}
+<div class="container my-4 text-center">
+    <form action="/submit_payment" method="post" class="mx-auto" style="max-width: 500px;">
+        <h1 class="mb-4">Payment Form</h1>
+        <p>Required fields are followed by <strong>*</strong></p>
+
+        <div class="mb-3 text-start">
+            <label for="name" class="form-label">Name: *</label>
+            <input type="text" class="form-control" name="name" id="name" required placeholder="Your Name">
+        </div>
+
+        <div class="mb-3 text-start">
+            <label>Gender: *</label>
+            <div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="female" required>
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 text-start">
+            <label for="address" class="form-label">Address:</label>
+            <textarea class="form-control" name="address" id="address" rows="3" placeholder="Enter your address"></textarea>
+        </div>
+
+        <div class="mb-3 text-start">
+            <label for="email" class="form-label">Email: *</label>
+            <input type="email" class="form-control" name="email" id="email" required placeholder="example@example.com">
+        </div>
+
+        <div class="mb-3 text-start">
+            <label for="pincode" class="form-label">Pincode: *</label>
+            <input type="number" class="form-control" name="pincode" id="pincode" required placeholder="500087">
+        </div>
+
+        <div class="mb-3 text-start">
+            <label for="card_type" class="form-label">Card Type: *</label>
+            <select class="form-select" name="card_type" id="card_type" required>
+                <option value="">-- Select a Card Type --</option>
+                <option value="visa">Visa</option>
+                <option value="mastercard">MasterCard</option>
+                <option value="rupay">Rupay</option>
+            </select>
+        </div>
+
+        <div class="mb-3 text-start">
+            <label for="card_number" class="form-label">Card Number: *</label>
+            <input type="number" class="form-control" name="card_number" id="card_number" required placeholder="1111-2222-3333-4444">
+        </div>
+
+        <div class="mb-3 text-start">
+            <label for="exp_date" class="form-label">Expiration Date: *</label>
+            <input type="date" class="form-control" name="exp_date" id="exp_date" required>
+        </div>
+
+        <div class="mb-3 text-start">
+            <label for="cvv" class="form-label">CVV: *</label>
+            <input type="password" class="form-control" name="cvv" id="cvv" required placeholder="123">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Pay Now</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+    </form>
+</div>
+{% endblock %}

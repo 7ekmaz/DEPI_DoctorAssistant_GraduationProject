@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %} Prediction Form {% endblock title %}
+{% block body %}
+
+<div class="container my-3">
+    <h2 class="text-center">Prediction Form</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/success" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name: *</label>
+            <input type="text" class="form-control" id="name" name="name" required placeholder="Oom Pandey">
+            <div class="invalid-feedback">
+                Please enter your name.
+            </div>
+        </div>
+
+        <fieldset class="mb-3">
+            <legend>Gender: *</legend>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
+                <label class="form-check-label" for="male">
+                    Male
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="female" value="female" required>
+                <label class="form-check-label" for="female">
+                    Female
+                </label>
+            </div>
+            <div class="invalid-feedback">
+                Please select a gender.
+            </div>
+        </fieldset>
+
+        <div class="mb-3">
+            <label for="dob" class="form-label">Date of Birth: *</label>
+            <input type="date" class="form-control" id="dob" name="dob" required>
+            <div class="invalid-feedback">
+                Please provide your date of birth.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email: *</label>
+            <input type="email" class="form-control" id="email" name="email" required placeholder="pandey@gmail.com">
+            <div class="invalid-feedback">
+                Please enter a valid email address.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">Address:</label>
+            <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter your address"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="pincode" class="form-label">Pincode: *</label>
+            <input type="number" class="form-control" id="pincode" name="pincode" required placeholder="500087">
+            <div class="invalid-feedback">
+                Please provide a pincode.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="file" class="form-label">Upload a file for getting a prediction: *</label>
+            <input type="file" class="form-control" id="file" name="file" accept=".png, .jpg, .jpeg" required>
+            <div class="invalid-feedback">
+                Please upload an image file.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+    </form>
+</div>
+
+{% endblock %}

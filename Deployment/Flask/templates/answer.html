@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Answer</title>
+</head>
+<body>
+    <h1>Answer to Your Question</h1>
+    <p><strong>Question:</strong> {{ question }}</p>
+    <p><strong>Answer:</strong> {{ answer }}</p>
+
+    <h3>Speech Output:</h3>
+    <audio controls>
+        <source src="{{ url_for('static', filename='prediction_audio.wav') }}" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+</body>
+</html>
